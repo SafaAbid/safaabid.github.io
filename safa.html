@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="fr" id="htmlRoot">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Safa Abid · Portfolio Data & IA</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- VARIABLES & RESET ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+   :root {
+      /* NOUVELLE PALETTE PLUS CLAIRE */
+      --bg: #f0f4f8;
+      --bg-card: #ffffff;
+      --bg-light: #e8eef6;
+      --primary: #7c3aed;
+      --primary-glow: #a78bfa;
+      --secondary: #0891b2;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #cbd5e1;
+      --shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
+      --radius: 18px;
+      --transition: 0.3s ease;
+      --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-ar: 'Tajawal', 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-main);
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+      overflow-x: hidden;
+    }
+
+    body.rtl { font-family: var(--font-ar); direction: rtl; text-align: right; }
+    body.rtl .section-title::after { left: auto; right: 0; }
+
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ---------- UTILITAIRES ---------- */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 80px 0; border-bottom: 1px solid var(--border); }
+    .section:last-of-type { border-bottom: none; }
+
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 48px;
+      position: relative;
+      display: inline-block;
+      letter-spacing: -0.02em;
+      color: #0f172a;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 4px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 8px 20px -8px rgba(124, 58, 237, 0.4);
+    }
+
+    .btn:hover {
+      background: #6d28d9;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px -10px rgba(124, 58, 237, 0.6);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      box-shadow: none;
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      background: rgba(124, 58, 237, 0.08);
+      box-shadow: none;
+    }
+
+    /* ---------- HEADER / NAV ---------- */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(240, 244, 248, 0.9);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.03em;
+    }
+
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+
+    .nav-links a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+
+    .lang-switch {
+      display: flex;
+      gap: 4px;
+      background: var(--bg-card);
+      padding: 4px;
+      border-radius: 40px;
+      border: 1px solid var(--border);
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.8rem;
+      padding: 6px 12px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+
+    .lang-btn.active { background: var(--primary); color: #fff; }
+    .lang-btn:hover:not(.active) { color: var(--text); }
+
+    /* ---------- CV DOWNLOAD BUTTONS (HEADER) ---------- */
+    .cv-download-group {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .cv-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+      white-space: nowrap;
+    }
+
+    .cv-btn:hover {
+      border-color: var(--primary);
+      color: var(--text);
+      background: rgba(124, 58, 237, 0.08);
+    }
+
+    .cv-btn i { font-size: 0.8rem; }
+
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* ---------- HERO ---------- */
+    #accueil {
+      padding-top: 140px;
+      padding-bottom: 80px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-content h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    .hero-content h1 span {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-content .subtitle {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .hero-content p {
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      max-width: 500px;
+    }
+
+    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hero-image { display: flex; justify-content: center; align-items: center; }
+
+    .avatar {
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+      font-weight: 700;
+      color: #fff;
+      box-shadow: 0 30px 60px -20px rgba(124, 58, 237, 0.4);
+      border: 4px solid var(--bg-card);
+      transition: var(--transition);
+    }
+
+    .avatar:hover { transform: scale(1.02); }
+
+    /* ---------- À PROPOS ---------- */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+
+    /* NOUVELLE MISE EN PAGE DU TEXTE À PROPOS */
+    .about-text p {
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      font-size: 0.98rem;
+      line-height: 1.8;
+      text-align: justify;
+    }
+
+    .about-text strong { color: var(--text); font-weight: 600; }
+
+    .about-text .highlight {
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(8, 145, 178, 0.08));
+      border-left: 4px solid var(--primary);
+      padding: 16px 20px;
+      border-radius: 0 12px 12px 0;
+      margin: 20px 0;
+      font-style: italic;
+    }
+
+    body.rtl .about-text .highlight {
+      border-left: none;
+      border-right: 4px solid var(--primary);
+      border-radius: 12px 0 0 12px;
+    }
+
+    .about-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .info-item { display: flex; align-items: center; gap: 12px; color: var(--text-muted); }
+    .info-item i { color: var(--primary); font-size: 1.2rem; width: 20px; }
+
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+    .stat-card {
+      background: var(--bg-card);
+      padding: 32px 24px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .stat-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 12px 30px -10px rgba(0,0,0,0.08); }
+
+    .stat-card .number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+    }
+
+    .stat-card .label { color: var(--text-muted); font-size: 0.9rem; margin-top: 8px; }
+
+    /* ---------- EXPÉRIENCES ---------- */
+    .timeline { position: relative; padding-left: 40px; }
+    body.rtl .timeline { padding-left: 0; padding-right: 40px; }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+
+    body.rtl .timeline::before { left: auto; right: 8px; }
+
+    .timeline-item { position: relative; margin-bottom: 48px; }
+    .timeline-item:last-child { margin-bottom: 0; }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -36px;
+      top: 6px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 3px solid var(--bg);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.3);
+    }
+
+    body.rtl .timeline-item::before { left: auto; right: -36px; }
+
+    .timeline-date {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--secondary);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .timeline-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 4px; }
+    .timeline-company { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 12px; }
+    .timeline-desc { color: var(--text-muted); font-size: 0.95rem; }
+
+    .timeline-desc ul { list-style: disc; padding-left: 20px; margin-top: 8px; }
+    body.rtl .timeline-desc ul { padding-left: 0; padding-right: 20px; }
+    .timeline-desc li { margin-bottom: 6px; }
+
+    .tech-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+
+    .tech-tag {
+      background: var(--bg-light);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    /* ---------- PROJETS ---------- */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 28px;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow);
+    }
+
+    .project-image {
+      height: 160px;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.12), rgba(8, 145, 178, 0.12));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: var(--primary);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-body {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-body h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+
+    .project-body p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .project-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+
+    .project-tech span {
+      background: var(--bg-light);
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      color: var(--secondary);
+      border: 1px solid var(--border);
+    }
+
+    /* Actions en bas de carte projet */
+    .project-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .project-actions-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .project-details-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+      padding: 0;
+    }
+
+    .project-details-btn:hover {
+      color: var(--primary-glow);
+      gap: 10px;
+    }
+
+    .project-github-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+
+    .project-github-link:hover {
+      color: var(--primary);
+    }
+
+    .project-github-link i {
+      font-size: 1.1rem;
+    }
+
+    /* ---------- MODAL ---------- */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(6px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      max-width: 680px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 36px;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: var(--transition);
+    }
+
+    body.rtl .modal-close { right: auto; left: 16px; }
+
+    .modal-close:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.12), rgba(8, 145, 178, 0.12));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .modal-header h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .modal-body p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    #modalDescription p {
+      margin-bottom: 16px;
+    }
+
+    #modalDescription p:last-child {
+      margin-bottom: 24px;
+    }
+
+    .modal-body .project-tech {
+      margin-bottom: 24px;
+    }
+
+    .modal-body .project-tech span {
+      font-size: 0.8rem;
+      padding: 4px 14px;
+    }
+
+    .modal-footer {
+      display: flex;
+      gap: 12px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ---------- COMPÉTENCES ---------- */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 28px;
+    }
+
+    .skill-category {
+      background: var(--bg-card);
+      padding: 28px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .skill-category:hover { border-color: var(--primary); }
+
+    .skill-category h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .skill-category h3 i { color: var(--primary); }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .skill-tags span {
+      background: var(--bg-light);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .skill-tags span:hover { border-color: var(--primary); color: var(--text); }
+
+    /* ---------- CONTACT ---------- */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+    .contact-info p { color: var(--text-muted); margin-bottom: 32px; }
+    .contact-details { display: flex; flex-direction: column; gap: 20px; }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+
+    .contact-item:hover { color: var(--text); }
+
+    .contact-item i {
+      width: 44px;
+      height: 44px;
+      background: var(--bg-card);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1.1rem;
+      border: 1px solid var(--border);
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+
+    .contact-item:hover i {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+
+    .contact-form input,
+    .contact-form textarea {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      width: 100%;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+    }
+
+    .contact-form textarea { min-height: 120px; resize: vertical; }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+    .badge-double-diplome {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--primary-glow);
+      background: rgba(139, 92, 246, 0.14);
+      border: 1px solid rgba(139, 92, 246, 0.4);
+    }
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 1100px) {
+      .cv-btn span { display: none; }
+      .cv-btn { padding: 6px 10px; }
+    }
+
+    @media (max-width: 992px) {
+      .hero-grid, .about-grid, .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .hero-content h1 { font-size: 2.8rem; }
+      .avatar { width: 240px; height: 240px; font-size: 4.5rem; }
+      .hero-image { order: -1; }
+    }
+
+    @media (max-width: 900px) {
+      .cv-download-group { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background: var(--bg-card);
+        flex-direction: column;
+        padding: 24px;
+        border-bottom: 1px solid var(--border);
+        gap: 20px;
+      }
+
+      .nav-links.open { display: flex; }
+      .menu-toggle { display: block; }
+      .nav-right { gap: 10px; }
+      .lang-switch { padding: 2px; }
+      .lang-btn { padding: 4px 8px; font-size: 0.7rem; }
+      .section { padding: 60px 0; }
+      .section-title { font-size: 1.8rem; margin-bottom: 36px; }
+      .hero-content h1 { font-size: 2.2rem; }
+      .avatar { width: 200px; height: 200px; font-size: 3.5rem; }
+      .about-info { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .timeline { padding-left: 28px; }
+      body.rtl .timeline { padding-right: 28px; }
+      .timeline-item::before { left: -26px; width: 12px; height: 12px; }
+      body.rtl .timeline-item::before { right: -26px; }
+      .modal-content { padding: 24px; }
+      .modal-header h3 { font-size: 1.2rem; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .hero-content h1 { font-size: 1.9rem; }
+      .hero-buttons { flex-direction: column; }
+      .btn { justify-content: center; width: 100%; }
+      .about-stats { grid-template-columns: 1fr; }
+      .lang-switch { gap: 2px; }
+      .lang-btn { padding: 4px 6px; font-size: 0.65rem; }
+      .modal-footer { flex-direction: column; }
+      .project-actions { flex-direction: column; align-items: flex-start; }
+      .project-actions-left { width: 100%; justify-content: space-between; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ========== HEADER ========== -->
+  <header>
+    <div class="container">
+      <nav>
+        <a href="#accueil" class="logo">Safa Abid</a>
+
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#accueil" data-i18n="nav_home">Accueil</a></li>
+          <li><a href="#apropos" data-i18n="nav_about">À propos</a></li>
+          <li><a href="#experiences" data-i18n="nav_experiences">Expériences</a></li>
+          <li><a href="#projets" data-i18n="nav_projects">Projets</a></li>
+          <li><a href="#competences" data-i18n="nav_skills">Compétences</a></li>
+          <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+        </ul>
+
+        <div class="nav-right">
+          <div class="cv-download-group">
+            <a href="Safa_Abid_CV_FR.pdf" class="cv-btn" download="Safa_Abid_CV_FR.pdf" title="Télécharger CV Français">
+              <i class="fas fa-file-pdf"></i>
+              <span>CV FR</span>
+            </a>
+            <a href="Safa_Abid_CV_EN.pdf" class="cv-btn" download="Safa_Abid_CV_EN.pdf" title="Download English CV">
+              <i class="fas fa-file-pdf"></i>
+              <span>CV EN</span>
+            </a>
+          </div>
+
+          <div class="lang-switch">
+            <button class="lang-btn active" data-lang="fr">FR</button>
+            <button class="lang-btn" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="ar">AR</button>
+          </div>
+
+          <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========== ACCUEIL ========== -->
+    <section id="accueil" class="section">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <h1 data-i18n="hero_greeting">Bonjour, je suis <span>Safa Abid</span></h1>
+            <p class="subtitle" data-i18n="hero_subtitle">Étudiante en Ingénierie des Données et Systèmes Décisionnels</p>
+            <p data-i18n="hero_description">
+              Passionnée par la data, l'intelligence artificielle et le développement web, je suis à la recherche d'un stage qui me permettra de développer mes compétences techniques dans un cadre innovant.
+            </p>
+            <div class="hero-buttons">
+              <a href="#contact" class="btn"><i class="fas fa-paper-plane"></i> <span data-i18n="hero_contact_btn">Me contacter</span></a>
+              <a href="#projets" class="btn btn-outline"><i class="fas fa-code"></i> <span data-i18n="hero_projects_btn">Voir mes projets</span></a>
+            </div>
+          </div>
+          <div class="hero-image">
+            <!-- <div class="avatar">SA</div> -->
+             <img class="avatar" src="photoSafa.png">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== À PROPOS ========== -->
+    <section id="apropos" class="section">
+      <div class="container">
+        <h2 class="section-title" data-i18n="about_title">À propos</h2>
+        <div class="about-grid">
+          <div class="about-text">
+            <p data-i18n="about_p1">
+              Je suis étudiante passionnée par l'informatique et particulièrement attirée par le monde de la Data. Actuellement en 3ᵉ année du cycle ingénieur en Ingénierie des Données à l'ENET'Com, mon parcours a commencé par une formation en Informatique de Gestion, complétée par une expérience en double diplôme avec l'Université du Mans en France.
+            </p>
+            <p data-i18n="about_p2">
+              Au fil de mes études, j'ai progressivement développé un intérêt pour la manière dont les données peuvent être collectées, traitées et transformées en informations utiles pour répondre à des problématiques concrètes. Mes projets et expériences m'ont permis d'explorer différents domaines, notamment le Data Engineering, le Machine Learning, le MLOps et le développement d'applications.
+            </p>
+            <!-- <p data-i18n="about_p3">
+              J'aime apprendre, expérimenter de nouvelles technologies et surtout transformer mes connaissances en solutions concrètes. Aujourd'hui, je souhaite continuer à évoluer dans le domaine de la Data, relever de nouveaux défis et construire des projets qui ont du sens.
+            </p> -->
+            <div class="about-info">
+              <div class="info-item"><i class="fas fa-map-pin"></i> <span data-i18n="about_location">Sfax, Tunisie</span></div>
+              <div class="info-item"><i class="fas fa-envelope"></i> <span>abbid.safa@gmail.com</span></div>
+              <div class="info-item"><i class="fas fa-phone"></i> <span>54 727 698</span></div>
+              <div class="info-item"><i class="fab fa-linkedin"></i> <span>linkedin.com/in/safa-abid-aa894a25a</span></div>
+            </div>
+          </div>
+          <div class="about-stats">
+            <div class="stat-card">
+              <div class="number">2+</div>
+              <div class="label" data-i18n="about_stat_years">Années d'études supérieures</div>
+            </div>
+            <div class="stat-card">
+              <div class="number">4+</div>
+              <div class="label" data-i18n="about_stat_projects">Projets réalisés</div>
+            </div>
+            <div class="stat-card">
+              <div class="number">3</div>
+              <div class="label" data-i18n="about_stat_languages">Langues parlées</div>
+            </div>
+            <div class="stat-card">
+              <div class="number">10+</div>
+              <div class="label" data-i18n="about_stat_tech">Technologies maîtrisées</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== EXPÉRIENCES ========== -->
+    <section id="experiences" class="section">
+      <div class="container">
+        <h2 class="section-title" data-i18n="exp_title">Expériences & Formation</h2>
+        <div class="timeline" id="timelineContainer"></div>
+      </div>
+    </section>
+
+    <!-- ========== PROJETS ========== -->
+    <section id="projets" class="section">
+      <div class="container">
+        <h2 class="section-title" data-i18n="projects_title">Projets & Portfolio</h2>
+        <div class="projects-grid" id="projectsGrid"></div>
+      </div>
+    </section>
+
+    <!-- ========== COMPÉTENCES ========== -->
+    <section id="competences" class="section">
+      <div class="container">
+        <h2 class="section-title" data-i18n="skills_title">Compétences techniques</h2>
+        <div class="skills-grid" id="skillsGrid"></div>
+      </div>
+    </section>
+
+    <!-- ========== CONTACT ========== -->
+    <section id="contact" class="section">
+      <div class="container">
+        <h2 class="section-title" data-i18n="contact_title">Contact</h2>
+        <div class="contact-grid">
+          <div class="contact-info">
+            <p data-i18n="contact_description">
+              N'hésitez pas à me contacter pour toute opportunité de stage, collaboration ou simplement pour échanger.
+            </p>
+            <div class="contact-details">
+              <a href="mailto:abbid.safa@gmail.com" class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <span>abbid.safa@gmail.com</span>
+              </a>
+              <a href="tel:+21654727698" class="contact-item">
+                <i class="fas fa-phone"></i>
+                <span>54 727 698</span>
+              </a>
+              <a href="https://linkedin.com/in/safa-abid-aa894a25a" target="_blank" class="contact-item">
+                <i class="fab fa-linkedin"></i>
+                <span>linkedin.com/in/safa-abid-aa894a25a</span>
+              </a>
+              <a href="https://github.com/safa-abid" target="_blank" class="contact-item">
+                <i class="fab fa-github"></i>
+                <span>github.com/safa-abid</span>
+              </a>
+            </div>
+          </div>
+          <form class="contact-form" onsubmit="alert('Merci pour votre message ! Je vous répondrai dès que possible.'); return false;">
+            <input type="text" placeholder="Votre nom" data-i18n-placeholder="contact_name" required>
+            <input type="email" placeholder="Votre email" data-i18n-placeholder="contact_email" required>
+            <input type="text" placeholder="Sujet" data-i18n-placeholder="contact_subject" required>
+            <textarea placeholder="Votre message" data-i18n-placeholder="contact_message" required></textarea>
+            <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> <span data-i18n="contact_send">Envoyer</span></button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== MODAL PROJET ========== -->
+  <div class="modal-overlay" id="projectModal">
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose" aria-label="Fermer">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="modal-header">
+        <div class="modal-icon" id="modalIcon">
+          <i class="fas fa-code"></i>
+        </div>
+        <h3 id="modalTitle">Titre du projet</h3>
+      </div>
+      <div class="modal-body">
+        <div id="modalDescription"></div>
+        <div class="project-tech" id="modalTech"></div>
+      </div>
+      <div class="modal-footer">
+        <a href="#" target="_blank" class="btn" id="modalLink">
+          <i class="fab fa-github"></i>
+          <span>Voir le projet sur GitHub</span>
+        </a>
+        <button class="btn btn-outline" id="modalCloseBtn">
+          <i class="fas fa-times"></i>
+          <span>Fermer</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Safa Abid. <span data-i18n="footer_rights">Tous droits réservés.</span></p>
+    </div>
+  </footer>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script>
+    // ============================================================
+    // 1. DONNÉES DES PROJETS
+    //    Dans les descriptions, "\n\n" sépare les paragraphes.
+    // ============================================================
+    const projectsData = [
+      {
+    "id": 1,
+    "icon": "fa-chart-line",
+    "title": {
+      "fr": "Stage d'été – Retail Intelligence Platform",
+      "en": "Summer Internship – Retail Intelligence Platform",
+      "ar": "تدريب صيفي – منصة ذكاء التجزئة"
+    },
+    "context": {
+      "fr": "Plateforme de Retail Intelligence (Anavid, juin 2026) : pipelines Spark/Kafka, modèles de Machine Learning, dashboards Grafana intégrés à l'interface web, workflows n8n, MLOps et architecture RAG/Chatbot.",
+      "en": "Retail Intelligence platform (Anavid, June 2026): Spark/Kafka pipelines, Machine Learning models, Grafana dashboards embedded in the web interface, n8n workflows, MLOps and RAG/Chatbot architecture.",
+      "ar": "منصة ذكاء التجزئة (Anavid، يونيو 2026): خطوط معالجة Spark/Kafka، نماذج تعلم آلي، لوحات Grafana مدمجة في واجهة الويب، سير عمل n8n، MLOps وبنية RAG/Chatbot."
+    },
+    "description": {
+      "fr": "Projet réalisé dans le cadre d’un stage d’été chez Anavid (Sfax, juin 2026), consacré au développement d’une plateforme de Retail Intelligence dédiée à l’exploitation et à l’analyse des données clients et transactionnelles. L’objectif était de mettre en place une chaîne complète permettant de transformer les données brutes en informations exploitables pour l’analyse et la prise de décision.\n\nLe projet comprend la mise en œuvre de pipelines de traitement Batch et Streaming avec Apache Spark et Kafka, ainsi que des étapes de feature engineering pour préparer les données destinées aux modèles de Machine Learning. Plusieurs approches ont été développées, notamment des modèles de classification, régression et clustering, afin d’exploiter les données clients et commerciales sous différents angles.\n\nDes dashboards Grafana ont également été développés pour suivre les principaux KPI commerciaux. Ces tableaux de bord ont été intégrés à l’interface web de la plateforme grâce à un embedding sécurisé via iframe et API, offrant aux utilisateurs métier un accès unifié aux analyses et aux indicateurs.\n\nLe projet intègre également l’automatisation des workflows avec n8n, notamment pour orchestrer les traitements, déclencher des actions et gérer des notifications en fonction des événements et des KPI. Une démarche MLOps a été mise en place avec MLflow pour le suivi et la gestion des modèles, ainsi que FastAPI pour leur exposition sous forme de services. Enfin, une architecture RAG/Chatbot a été conçue afin de permettre un accès conversationnel aux données et aux résultats produits par la plateforme.\n\nCette expérience m’a permis de développer des compétences en Data Engineering, Machine Learning, MLOps, Data Visualization et automatisation, tout en travaillant sur une architecture intégrant différents composants de traitement, d’analyse et de restitution des données.",
+      "en": "Project carried out during a summer internship at Anavid (Sfax, June 2026), dedicated to developing a Retail Intelligence platform for exploiting and analyzing customer and transactional data. The objective was to build a complete chain that turns raw data into actionable information for analysis and decision-making.\n\nThe project includes the implementation of Batch and Streaming processing pipelines with Apache Spark and Kafka, as well as feature engineering steps to prepare data for Machine Learning models. Several approaches were developed, including classification, regression and clustering models, in order to exploit customer and commercial data from different angles.\n\nGrafana dashboards were also developed to track the main commercial KPIs. These dashboards were integrated into the platform's web interface through secure embedding via iframe and API, giving business users unified access to analyses and indicators.\n\nThe project also includes workflow automation with n8n, notably to orchestrate processing, trigger actions and manage notifications based on events and KPIs. An MLOps approach was put in place with MLflow for model tracking and management, and FastAPI to expose models as services. Finally, a RAG/Chatbot architecture was designed to provide conversational access to the data and results produced by the platform.\n\nThis experience allowed me to develop skills in Data Engineering, Machine Learning, MLOps, Data Visualization and automation, while working on an architecture combining various components for data processing, analysis and presentation.",
+      "ar": "مشروع أُنجز في إطار تدريب صيفي لدى Anavid (صفاقس، يونيو 2026)، خُصّص لتطوير منصة ذكاء التجزئة المعنية باستغلال وتحليل بيانات العملاء والمعاملات. كان الهدف إرساء سلسلة متكاملة تحوّل البيانات الخام إلى معلومات قابلة للاستغلال في التحليل واتخاذ القرار.\n\nيشمل المشروع تنفيذ خطوط معالجة بالدفعات والبث المباشر باستخدام Apache Spark وKafka، إضافة إلى مراحل هندسة الميزات لإعداد البيانات الموجّهة لنماذج التعلم الآلي. جرى تطوير عدة مقاربات، منها نماذج التصنيف والانحدار والتجميع، بهدف استغلال بيانات العملاء والبيانات التجارية من زوايا مختلفة.\n\nكما طُوّرت لوحات معلومات Grafana لمتابعة أهم مؤشرات الأداء التجارية. وقد دُمجت هذه اللوحات في واجهة الويب الخاصة بالمنصة عبر تضمين آمن باستخدام iframe وAPI، مما يتيح للمستخدمين المهنيين وصولًا موحدًا إلى التحليلات والمؤشرات.\n\nيتضمن المشروع أيضًا أتمتة سير العمل باستخدام n8n، خصوصًا لتنسيق عمليات المعالجة وإطلاق الإجراءات وإدارة الإشعارات بناءً على الأحداث ومؤشرات الأداء. وقد أُرسيت مقاربة MLOps باستخدام MLflow لتتبع النماذج وإدارتها، وFastAPI لإتاحتها في شكل خدمات. وأخيرًا، صُمّمت بنية RAG/Chatbot لإتاحة وصول حواري إلى البيانات والنتائج التي تنتجها المنصة.\n\nأتاحت لي هذه التجربة تطوير مهاراتي في هندسة البيانات والتعلم الآلي وMLOps وتصور البيانات والأتمتة، مع العمل على بنية تجمع مكونات مختلفة لمعالجة البيانات وتحليلها وعرضها."
+    },
+    "tech": ["Python", "Apache Spark", "Kafka", "PostgreSQL", "Grafana", "n8n", "Scikit-learn", "MLflow", "FastAPI", "Ionic", "React"],
+    "link": "https://github.com/safa-abid/retail-intelligence"
+  },
+  {
+    "id": 1,
+    "icon": "fa-shield-alt",
+    "title": {
+      "fr": "Shop Lifting — Anavid Smart Retail Platform",
+      "en": "Shop Lifting — Anavid Smart Retail Platform",
+      "ar": "كشف السرقة في المتاجر — منصة Anavid Smart Retail"
+    },
+    "context": {
+      "fr": "Solution de détection de vol en environnement retail intégrée à Anavid Smart Retail : API REST sécurisées (Django REST Framework), application mobile Ionic React, Redis, MySQL et déploiement Docker Compose.",
+      "en": "Shoplifting detection solution for retail environments, integrated into Anavid Smart Retail: token-secured REST APIs (Django REST Framework), Ionic React mobile app, Redis, MySQL and Docker Compose deployment.",
+      "ar": "حل لكشف السرقة في بيئة البيع بالتجزئة مدمج في منصة Anavid Smart Retail: واجهات REST API مؤمّنة بالرمز (Django REST Framework)، تطبيق جوال Ionic React، Redis وMySQL ونشر عبر Docker Compose."
+    },
+    "description": {
+      "fr": "Projet de développement d’une solution de détection de vol en environnement retail, intégrée à la plateforme Anavid Smart Retail. L’objectif était de mettre en place une architecture permettant de gérer et de transmettre les alertes issues de la détection vidéo vers une application mobile.\n\nLe projet comprend le développement d’API REST authentifiées par token avec Django REST Framework, permettant de gérer les données et les alertes générées par le système de détection. Ces endpoints sont consommés par une interface mobile développée avec Ionic React, offrant un accès aux alertes et aux informations associées.\n\nL’architecture intègre également Redis pour la gestion du cache et MySQL pour la persistance des données. L’ensemble des composants a été conteneurisé et déployé avec Docker Compose, permettant d’orchestrer les différents services de la plateforme.\n\nCe projet m’a permis de renforcer mes compétences en développement d’API REST, développement mobile, gestion des bases de données, mise en cache et conteneurisation, tout en travaillant sur une application concrète dans le domaine du Smart Retail.",
+      "en": "Project to develop a shoplifting detection solution for retail environments, integrated into the Anavid Smart Retail platform. The objective was to build an architecture to manage and forward alerts generated by video detection to a mobile application.\n\nThe project includes the development of token-authenticated REST APIs with Django REST Framework, used to manage the data and alerts generated by the detection system. These endpoints are consumed by a mobile interface built with Ionic React, providing access to alerts and related information.\n\nThe architecture also integrates Redis for caching and MySQL for data persistence. All components were containerized and deployed with Docker Compose, orchestrating the platform's various services.\n\nThis project allowed me to strengthen my skills in REST API development, mobile development, database management, caching and containerization, while working on a real-world application in the Smart Retail domain.",
+      "ar": "مشروع تطوير حل لكشف السرقة في بيئة البيع بالتجزئة، مدمج ضمن منصة Anavid Smart Retail. كان الهدف إرساء بنية تتيح إدارة التنبيهات الناتجة عن الكشف بالفيديو ونقلها إلى تطبيق جوال.\n\nيشمل المشروع تطوير واجهات REST API موثّقة بالرمز (token) باستخدام Django REST Framework، تتيح إدارة البيانات والتنبيهات التي يولّدها نظام الكشف. تُستهلك هذه الواجهات من خلال تطبيق جوال طُوّر باستخدام Ionic React، يتيح الاطلاع على التنبيهات والمعلومات المرتبطة بها.\n\nتتضمن البنية أيضًا Redis لإدارة التخزين المؤقت وMySQL لحفظ البيانات. جرى تغليف جميع المكونات في حاويات (Containers) ونشرها باستخدام Docker Compose، مما يتيح تنسيق مختلف خدمات المنصة.\n\nأتاح لي هذا المشروع تعزيز مهاراتي في تطوير واجهات REST API، وتطوير تطبيقات الجوال، وإدارة قواعد البيانات، والتخزين المؤقت، والحاويات، مع العمل على تطبيق حقيقي في مجال البيع بالتجزئة الذكي."
+    },
+    "tech": ["Python", "Django REST Framework", "Ionic React", "MySQL", "Redis", "Docker Compose"],
+    "link": "https://github.com/safa-abid/shop-lifting"
+  },
+  {
+    "id": 2,
+    "icon": "fa-brain",
+    "title": {
+      "fr": "Détection de l'autisme par GNN",
+      "en": "Autism Detection with GNN",
+      "ar": "كشف التوحد باستخدام شبكات الرسم البياني"
+    },
+    "context": {
+      "fr": "Application du modèle GAT-LI sur la base ABIDE I pour la classification de l'autisme à partir de données de neuro-imagerie. Prétraitement, analyse et évaluation des performances.",
+      "en": "Application of the GAT-LI model on the ABIDE I dataset for autism classification from neuroimaging data. Preprocessing, analysis and performance evaluation.",
+      "ar": "تطبيق نموذج GAT-LI على قاعدة ABIDE I لتصنيف التوحد من بيانات التصوير العصبي. المعالجة المسبقة والتحليل وتقييم الأداء."
+    },
+    "description": {
+      "fr": "Projet de fin d’année consacré à la détection de l’autisme à partir de données de neuro-imagerie de la base ABIDE I (Autism Brain Imaging Data Exchange). L’objectif était d’exploiter les Graph Neural Networks (GNN) pour représenter les relations entre les différentes régions du cerveau et améliorer la classification des sujets.\n\nLe projet a porté sur plusieurs étapes, notamment le prétraitement des données, l’extraction des régions d’intérêt (ROI), la construction des graphes de connectivité cérébrale et leur normalisation. Nous avons ensuite appliqué le modèle GAT-LI (Graph Attention Network with Learnable Initialization) afin d’apprendre les caractéristiques et les relations présentes dans les graphes.\n\nLes performances du modèle ont été évaluées à travers plusieurs métriques, notamment l’accuracy, la sensibilité, la spécificité, le score F1 et l’AUC, afin d’analyser sa capacité à distinguer les sujets avec et sans autisme.\n\nCe projet m’a permis d’approfondir mes connaissances en Deep Learning, Graph Neural Networks et traitement de données de neuro-imagerie, tout en développant une expérience pratique avec PyTorch, Scikit-learn et NumPy. Projet réalisé en collaboration avec Nour El Houda Mhadhbi.",
+      "en": "End-of-year project dedicated to autism detection from neuroimaging data from the ABIDE I (Autism Brain Imaging Data Exchange) database. The objective was to leverage Graph Neural Networks (GNN) to represent the relationships between different brain regions and improve subject classification.\n\nThe project involved several stages, including data preprocessing, extraction of regions of interest (ROI), construction of brain connectivity graphs and their normalization. We then applied the GAT-LI model (Graph Attention Network with Learnable Initialization) to learn the features and relationships present in the graphs.\n\nThe model's performance was evaluated through several metrics, including accuracy, sensitivity, specificity, F1 score and AUC, in order to analyze its ability to distinguish subjects with and without autism.\n\nThis project allowed me to deepen my knowledge in Deep Learning, Graph Neural Networks and neuroimaging data processing, while developing practical experience with PyTorch, Scikit-learn and NumPy. Project carried out in collaboration with Nour El Houda Mhadhbi.",
+      "ar": "مشروع نهاية السنة مخصص للكشف عن التوحد من بيانات التصوير العصبي لقاعدة بيانات ABIDE I (تبادل بيانات تصوير الدماغ للتوحد). كان الهدف هو استغلال الشبكات العصبية الرسومية (GNN) لتمثيل العلاقات بين مناطق الدماغ المختلفة وتحسين تصنيف الأفراد.\n\nتضمن المشروع عدة مراحل، بما في ذلك المعالجة المسبقة للبيانات، واستخراج مناطق الاهتمام (ROI)، وبناء رسوم بيانية للاتصال الدماغي وتطبيعها. ثم قمنا بتطبيق نموذج GAT-LI (شبكة الانتباه الرسومية مع التهيئة القابلة للتعلم) لتعلم الخصائص والعلاقات الموجودة في الرسوم البيانية.\n\nتم تقييم أداء النموذج من خلال عدة مقاييس، بما في ذلك الدقة والحساسية والخصوصية ودرجة F1 وAUC، وذلك لتحليل قدرته على التمييز بين الأفراد المصابين بالتوحد وغير المصابين به.\n\nأتاح لي هذا المشروع تعميق معرفتي في التعلم العميق والشبكات العصبية الرسومية ومعالجة بيانات التصوير العصبي، مع تطوير خبرة عملية باستخدام PyTorch وScikit-learn وNumPy. تم إنجاز المشروع بالتعاون مع نور الهدى مهدبي."
+    },
+    "tech": ["Python", "PyTorch", "Scikit-learn", "NumPy"],
+    "link": "https://github.com/safa-abid/autism-gnn"
+  },
+  {
+    "id": 3,
+    "icon": "fa-tasks",
+    "title": {
+      "fr": "Gestionnaire de tâches intelligent",
+      "en": "Smart Task Manager",
+      "ar": "مدير المهام الذكي"
+    },
+    "context": {
+      "fr": "Application de gestion et de suivi des tâches avec affectation intelligente (compétences, charge, disponibilité), timeline Kanban interactive et détection des projets à risque.",
+      "en": "Task management and tracking application with smart assignment (skills, workload, availability), interactive Kanban timeline and at-risk project detection.",
+      "ar": "تطبيق لإدارة المهام ومتابعتها مع إسناد ذكي (المهارات، عبء العمل، التوفر)، وجدول زمني تفاعلي بنمط Kanban وكشف المشاريع المعرّضة للخطر."
+    },
+    "description": {
+      "fr": "Projet de développement d’une solution de gestion et de suivi intelligent des tâches, conçue pour faciliter la répartition du travail au sein des équipes et améliorer le suivi de l’avancement des projets.\n\nL’application propose une affectation intelligente des tâches en prenant en compte plusieurs critères, notamment les compétences, la charge de travail et la disponibilité des membres. Cette approche permet d’attribuer les tâches en fonction des ressources disponibles et des besoins du projet.\n\nLe projet intègre également une timeline interactive de type Kanban, permettant de visualiser les tâches et leur progression. L’état de chaque tâche ainsi que l’avancement global des projets sont calculés automatiquement à partir des données disponibles. Un mécanisme de détection des projets à risque permet par ailleurs d’identifier les situations nécessitant une attention particulière.\n\nCe projet m’a permis de développer mes compétences en gestion de projet, conception de fonctionnalités intelligentes et développement d’applications interactives, tout en travaillant sur l’automatisation du suivi et de la prise de décision.",
+      "en": "Project to develop a smart task management and tracking solution, designed to make work distribution within teams easier and to improve project progress monitoring.\n\nThe application offers smart task assignment based on several criteria, including members' skills, workload and availability. This approach makes it possible to assign tasks according to available resources and project needs.\n\nThe project also includes an interactive Kanban-style timeline to visualize tasks and their progress. The status of each task and the overall progress of projects are computed automatically from the available data. A risk detection mechanism also identifies projects that require special attention.\n\nThis project allowed me to develop my skills in project management, smart feature design and interactive application development, while working on the automation of monitoring and decision-making.",
+      "ar": "مشروع تطوير حل لإدارة المهام ومتابعتها بشكل ذكي، صُمّم لتسهيل توزيع العمل داخل الفرق وتحسين متابعة تقدّم المشاريع.\n\nيقترح التطبيق إسنادًا ذكيًا للمهام اعتمادًا على عدة معايير، منها مهارات الأعضاء وعبء العمل والتوفر. يتيح هذا النهج إسناد المهام وفق الموارد المتاحة واحتياجات المشروع.\n\nيتضمن المشروع أيضًا جدولًا زمنيًا تفاعليًا بنمط Kanban لعرض المهام وتقدّمها. تُحتسب حالة كل مهمة والتقدم العام للمشاريع تلقائيًا انطلاقًا من البيانات المتاحة. كما تتيح آلية كشف المشاريع المعرّضة للخطر تحديد الحالات التي تستدعي اهتمامًا خاصًا.\n\nأتاح لي هذا المشروع تطوير مهاراتي في إدارة المشاريع وتصميم الوظائف الذكية وتطوير التطبيقات التفاعلية، مع العمل على أتمتة المتابعة واتخاذ القرار."
+    },
+    "tech": ["Spring Boot", "Spring Data JPA", "MySQL", "Thymeleaf", "Bootstrap"],
+    "link": "https://github.com/safa-abid/smart-task-manager"
+  },
+  {
+    "id": 4,
+    "icon": "fa-user-graduate",
+    "title": {
+      "fr": "EduAdmin (OnLearn) — Gestion des présences",
+      "en": "EduAdmin (OnLearn) — Attendance Management",
+      "ar": "EduAdmin (OnLearn) — إدارة الحضور"
+    },
+    "context": {
+      "fr": "Application de gestion des présences académiques en PHP (MVC) avec trois rôles, pointage automatique par reconnaissance faciale (DeepFace), exports Excel/PDF et emails automatiques.",
+      "en": "Academic attendance management application in PHP (MVC) with three roles, automatic check-in by facial recognition (DeepFace), Excel/PDF exports and automated emails.",
+      "ar": "تطبيق لإدارة الحضور الأكاديمي بلغة PHP (MVC) بثلاثة أدوار، مع تسجيل حضور تلقائي بالتعرف على الوجه (DeepFace)، وتصدير Excel/PDF ورسائل بريد إلكتروني آلية."
+    },
+    "description": {
+      "fr": "Projet de développement d’une application de gestion des présences académiques, conçue pour faciliter le suivi des étudiants et la gestion des absences au sein d’un établissement d’enseignement.\n\nL’application repose sur une architecture MVC développée en PHP natif et propose trois rôles distincts : Administrateur, Enseignant et Étudiant. Chaque rôle dispose de fonctionnalités adaptées à ses besoins, permettant notamment la gestion des utilisateurs, le suivi des présences et la consultation des informations associées.\n\nLe projet intègre un système de pointage automatique par reconnaissance faciale, basé sur DeepFace, en complément du marquage manuel des présences. Il comprend également des fonctionnalités d’export des données au format Excel et PDF, ainsi que l’envoi d’emails automatiques pour faciliter la communication et le suivi des absences.\n\nCe projet m’a permis de renforcer mes compétences en développement web, conception MVC, gestion des bases de données et intégration de solutions d’intelligence artificielle, notamment dans le domaine de la reconnaissance faciale.",
+      "en": "Project to develop an academic attendance management application, designed to make student monitoring and absence management easier within an educational institution.\n\nThe application is built on an MVC architecture in native PHP and offers three distinct roles: Administrator, Teacher and Student. Each role has features adapted to its needs, including user management, attendance tracking and access to related information.\n\nThe project includes an automatic check-in system based on facial recognition with DeepFace, in addition to manual attendance marking. It also provides data export in Excel and PDF formats, as well as automated emails to facilitate communication and absence follow-up.\n\nThis project allowed me to strengthen my skills in web development, MVC design, database management and the integration of artificial intelligence solutions, particularly in facial recognition.",
+      "ar": "مشروع تطوير تطبيق لإدارة الحضور الأكاديمي، صُمّم لتسهيل متابعة الطلبة وإدارة الغيابات داخل مؤسسة تعليمية.\n\nيعتمد التطبيق على بنية MVC مطوّرة بلغة PHP الأصلية، ويوفّر ثلاثة أدوار متمايزة: المسؤول والأستاذ والطالب. يمتلك كل دور وظائف تلائم احتياجاته، من بينها إدارة المستخدمين ومتابعة الحضور والاطلاع على المعلومات المرتبطة.\n\nيتضمن المشروع نظام تسجيل حضور تلقائيًا بالتعرف على الوجه اعتمادًا على DeepFace، إلى جانب التسجيل اليدوي للحضور. كما يوفّر تصدير البيانات بصيغتي Excel وPDF، وإرسال رسائل بريد إلكتروني آلية لتسهيل التواصل ومتابعة الغيابات.\n\nأتاح لي هذا المشروع تعزيز مهاراتي في تطوير الويب وتصميم MVC وإدارة قواعد البيانات ودمج حلول الذكاء الاصطناعي، لا سيما في مجال التعرف على الوجه."
+    },
+    "tech": ["PHP natif", "MySQL / PDO", "Python", "DeepFace", "PHPMailer", "Dompdf"],
+    "link": "https://github.com/safa-abid/eduadmin-onlearn"
+  },
+  {
+    "id": 5,
+    "icon": "fa-file-invoice",
+    "title": {
+      "fr": "Application de gestion de factures",
+      "en": "Invoice Management Application",
+      "ar": "تطبيق إدارة الفواتير"
+    },
+    "context": {
+      "fr": "Application Flask de suivi des factures avec mise à jour automatique de leur état selon le montant réglé, génération de PDF et rapports financiers.",
+      "en": "Flask application for invoice tracking with automatic status updates based on the amount paid, PDF generation and financial reports.",
+      "ar": "تطبيق Flask لمتابعة الفواتير مع تحديث تلقائي لحالتها حسب المبلغ المسدَّد، وإنشاء ملفات PDF وتقارير مالية."
+    },
+    "description": {
+      "fr": "Projet de développement d’une application dédiée à la gestion et au suivi des factures, permettant de centraliser les informations financières et de faciliter le suivi des règlements.\n\nL’application a été développée avec Flask selon une approche orientée objet et intègre un mécanisme de suivi automatique de l’état des factures en fonction du montant réglé. Cette fonctionnalité permet de déterminer automatiquement la situation de chaque facture et de faciliter le suivi des paiements.\n\nLe projet comprend également la génération de factures au format PDF ainsi que la production de rapports financiers.\n\nCe projet m’a permis de renforcer mes compétences en développement web avec Flask, programmation orientée objet, génération de documents, gestion financière et conteneurisation.",
+      "en": "Project to develop an application dedicated to invoice management and tracking, centralizing financial information and making payment follow-up easier.\n\nThe application was built with Flask using an object-oriented approach and includes a mechanism that automatically tracks invoice status based on the amount paid. This feature automatically determines the situation of each invoice and simplifies payment tracking.\n\nThe project also includes PDF invoice generation as well as the production of financial reports.\n\nThis project allowed me to strengthen my skills in web development with Flask, object-oriented programming, document generation, financial management and containerization.",
+      "ar": "مشروع تطوير تطبيق مخصص لإدارة الفواتير ومتابعتها، يتيح تجميع المعلومات المالية في مكان واحد وتسهيل متابعة عمليات التسديد.\n\nطُوِّر التطبيق باستخدام Flask وفق مقاربة موجّهة للكائنات، ويتضمن آلية لمتابعة حالة الفواتير تلقائيًا حسب المبلغ المسدَّد. تتيح هذه الميزة تحديد وضعية كل فاتورة تلقائيًا وتسهيل متابعة المدفوعات.\n\nيشمل المشروع أيضًا إنشاء الفواتير بصيغة PDF وإعداد التقارير المالية.\n\nأتاح لي هذا المشروع تعزيز مهاراتي في تطوير الويب باستخدام Flask والبرمجة الموجّهة للكائنات وإنشاء المستندات والإدارة المالية والحاويات."
+    },
+    "tech": ["Python", "Flask", "FPDF", "Docker Compose"],
+    "link": "https://github.com/safa-abid/invoice-management"
+  },
+  {
+    "id": 6,
+    "icon": "fa-calendar-check",
+    "title": {
+      "fr": "Plateforme de réservation municipale",
+      "en": "Municipal Reservation Platform",
+      "ar": "منصة الحجوزات البلدية"
+    },
+    "context": {
+      "fr": "Application de gestion des réservations pour une municipalité : backend Spring Boot et interface citoyenne responsive en HTML et Bootstrap.",
+      "en": "Reservation management application for a municipality: Spring Boot backend and responsive citizen interface built with HTML and Bootstrap.",
+      "ar": "تطبيق لإدارة الحجوزات لفائدة بلدية: واجهة خلفية بـ Spring Boot وواجهة متجاوبة للمواطنين بـ HTML وBootstrap."
+    },
+    "description": {
+      "fr": "Projet de développement d’une application de gestion des réservations pour une municipalité, visant à faciliter la gestion des demandes de réservation ainsi que leur suivi.\n\nL’application repose sur un backend développé avec Spring Boot, permettant de gérer la logique métier et les différentes opérations liées aux réservations. Une interface destinée aux citoyens, développée avec HTML et Bootstrap, permet aux utilisateurs d’interagir avec la plateforme et d’effectuer leurs demandes de réservation.\n\nCe projet m’a permis de renforcer mes compétences en développement d’applications web, conception d’API et services backend avec Spring Boot, ainsi qu’en intégration d’interfaces web responsives.",
+      "en": "Project to develop a reservation management application for a municipality, aimed at making the handling and follow-up of reservation requests easier.\n\nThe application relies on a backend built with Spring Boot, which manages the business logic and the various reservation-related operations. A citizen-facing interface, built with HTML and Bootstrap, lets users interact with the platform and submit their reservation requests.\n\nThis project allowed me to strengthen my skills in web application development, API and backend service design with Spring Boot, as well as in integrating responsive web interfaces.",
+      "ar": "مشروع تطوير تطبيق لإدارة الحجوزات لفائدة بلدية، يهدف إلى تسهيل معالجة طلبات الحجز ومتابعتها.\n\nيعتمد التطبيق على واجهة خلفية مطوّرة بـ Spring Boot تتولى المنطق الوظيفي ومختلف العمليات المرتبطة بالحجوزات. وتتيح واجهة موجّهة للمواطنين، مطوّرة بـ HTML وBootstrap، للمستخدمين التفاعل مع المنصة وتقديم طلبات الحجز.\n\nأتاح لي هذا المشروع تعزيز مهاراتي في تطوير تطبيقات الويب وتصميم واجهات API والخدمات الخلفية باستخدام Spring Boot، إضافة إلى دمج واجهات ويب متجاوبة."
+    },
+    "tech": ["Spring Boot", "HTML", "Bootstrap"],
+    "link": "https://github.com/safa-abid/municipal-reservation"
+  },
+];
+    // ============================================================
+    // 2. TRADUCTIONS (i18n)
+    // ============================================================
+    const translations = {
+      fr: {
+        nav_home: "Accueil", nav_about: "À propos", nav_experiences: "Expériences",
+        nav_projects: "Projets", nav_skills: "Compétences", nav_contact: "Contact",
+        hero_greeting: "Bonjour, je suis <span>Safa Abid</span>",
+        hero_subtitle: "Étudiante en Ingénierie des Données et Systèmes Décisionnels",
+        hero_description: "Passionnée par la data, l'intelligence artificielle et le développement web, je suis à la recherche d'un stage qui me permettra de développer mes compétences techniques dans un cadre innovant.",
+        hero_contact_btn: "Me contacter", hero_projects_btn: "Voir mes projets",
+        about_title: "À propos",
+        about_p1: "Je suis étudiante passionnée par l'informatique et particulièrement attirée par le monde de la Data. Actuellement en 3ᵉ année du cycle ingénieur en Ingénierie des Données à l'ENET'Com, mon parcours a commencé par une formation en Informatique de Gestion, complétée par une expérience en double diplôme avec l'Université du Mans en France.",
+        about_p2: "Au fil de mes études, j'ai progressivement développé un intérêt pour la manière dont les données peuvent être collectées, traitées et transformées en informations utiles pour répondre à des problématiques concrètes. Mes projets et expériences m'ont permis d'explorer différents domaines, notamment le Data Engineering, le Machine Learning, le MLOps et le développement d'applications.",
+        about_location: "Sfax, Tunisie",
+        about_stat_years: "Années d'études supérieures", about_stat_projects: "Projets réalisés",
+        about_stat_languages: "Langues parlées", about_stat_tech: "Technologies maîtrisées",
+        exp_title: "Expériences & Formation", projects_title: "Projets & Portfolio",
+        skills_title: "Compétences techniques", contact_title: "Contact",
+        contact_description: "N'hésitez pas à me contacter pour toute opportunité de stage, collaboration ou simplement pour échanger.",
+        contact_name: "Votre nom", contact_email: "Votre email", contact_subject: "Sujet",
+        contact_message: "Votre message", contact_send: "Envoyer",
+        footer_rights: "Tous droits réservés.",
+        project_view: "Détails",
+        project_github: "GitHub",
+        project_modal_link: "Voir le projet sur GitHub",
+        project_modal_close: "Fermer",
+        timeline: [
+          { date: "Juin 2026", title: "Stage d'été – Retail Intelligence Platform", company: "Anavid, Sfax",
+            desc: ["Développement d'une plateforme de Retail Intelligence dédiée à l'exploitation et à l'analyse des données clients et transactionnelles.", "Conception et mise en œuvre de traitements de données (feature engineering, pipelines Batch/Streaming avec Apache Spark et Kafka) et développement de modèles de classification, régression et clustering.", "Développement de dashboards Grafana pour la visualisation des principaux KPI commerciaux, et intégration de ces dashboards dans l'interface web de la plateforme.", "Orchestration et automatisation des workflows avec n8n.", "Mise en œuvre de pratiques MLOps : suivi et versionnement des modèles et des données avec MLflow et DagsHub, exposition via API FastAPI, et automatisation des workflows CI/CD avec GitHub Actions.", "Développement d'une solution RAG/Chatbot pour l'exploitation intelligente des données."],
+            tech: ["Python", "Spark", "Kafka", "PostgreSQL", "Grafana", "n8n", "Scikit-learn", "MLflow", "DagsHub", "GitHub Actions", "FastAPI", "Ionic", "React"] },
+          { date: "Fév. – Avr. 2026", title: "Projet de Fin d'Année – Détection de l'autisme avec les Graph Neural Networks", company: "ENET'Com",
+            desc: ["Application du modèle GAT-LI sur la base ABIDE I pour la classification de l'autisme.", "Prétraitement et analyse de données de neuro-imagerie.", "Évaluation des performances du modèle.", "Projet réalisé en collaboration avec Nour El Houda Mhadhbi."],
+            tech: ["Python", "PyTorch", "Scikit-learn", "NumPy"] },
+          { date: "Juil. 2025", title: "Projet académique – MonDocteur (Plateforme web)", company: "Sfax",
+            desc: ["Conception et développement d'une plateforme web de gestion des services médicaux."],
+            tech: ["MySQL", "Express.js", "React.js", "Node.js"] },
+          { date: "Fév. – Juin 2024", title: "Stage PFE – Application web Donnons Espoir", company: "AZIIN, Sfax",
+            desc: ["Conception et développement d'une application web de dons destinée aux associations caritatives."],
+            tech: ["MySQL", "Express.js", "React.js", "Node.js"] },
+          { date: "2025 – à ce jour", title: "Cycle d'ingénieur – Ingénierie des Données et Systèmes Décisionnels", company: "ENET'Com, Sfax", desc: [], tech: [] },
+          { date: "2023 – 2024", title: "Licence en Informatique appliquée à la Gestion", company: "FSEGS, Sfax<br><span class=\"badge-double-diplome\"><i class=\"fas fa-graduation-cap\"></i> Double diplôme en Informatique – Université du Mans (France)</span>", desc: [], tech: [] },
+          { date: "2020 – 2021", title: "Baccalauréat en Sciences Expérimentales", company: "Lycée 15 Novembre 1955, Sfax", desc: [], tech: [] }
+        ],
+        skills: [
+          { category: "Langages", icon: "fa-code", items: ["Java", "Scala", "Python", "C", "JavaScript", "PHP", "C#", "Dart", "PL/SQL"] },
+          { category: "Frameworks", icon: "fa-layer-group", items: ["Symfony", "Laravel", "Spring Boot", "Flutter", "React", "Express.js", "FastAPI", "Ionic"] },
+          { category: "Bases de données", icon: "fa-database", items: ["MySQL", "MongoDB", "PostgreSQL"] },
+          { category: "Big Data & Streaming", icon: "fa-stream", items: ["Apache Spark", "Kafka"] },
+          { category: "MLOps & Visualisation", icon: "fa-chart-bar", items: ["MLflow", "DagsHub", "Grafana", "n8n"] },
+          { category: "Outils", icon: "fa-tools", items: ["VS Code", "Eclipse", "Visual Studio", "GitHub", "Linux", "Jupyter Notebook", "Android Studio", "Node.js"] }
+        ]
+      },
+      en: {
+        nav_home: "Home", nav_about: "About", nav_experiences: "Experience",
+        nav_projects: "Projects", nav_skills: "Skills", nav_contact: "Contact",
+        hero_greeting: "Hi, I'm <span>Safa Abid</span>",
+        hero_subtitle: "Data Engineering & Decision Systems Student",
+        hero_description: "Passionate about data, artificial intelligence and web development, I'm looking for an internship to develop my technical skills in an innovative environment.",
+        hero_contact_btn: "Contact me", hero_projects_btn: "View my projects",
+        about_title: "About",
+        about_p1: "I'm a student passionate about computer science, with a particular interest in the world of Data. Currently in my 3rd year of the engineering program in Data Engineering at ENET'Com, my journey began with a degree in Business Computing, complemented by a double-degree experience with the University of Le Mans in France.",
+        about_p2: "Throughout my studies, I've gradually developed an interest in how data can be collected, processed and turned into useful insights to address real-world problems. My projects and experiences have let me explore different areas, including Data Engineering, Machine Learning, MLOps and application development.",
+        about_location: "Sfax, Tunisia",
+        about_stat_years: "Years of higher education", about_stat_projects: "Completed projects",
+        about_stat_languages: "Languages spoken", about_stat_tech: "Technologies mastered",
+        exp_title: "Experience & Education", projects_title: "Projects & Portfolio",
+        skills_title: "Technical Skills", contact_title: "Contact",
+        contact_description: "Feel free to contact me for any internship opportunity, collaboration or just to chat.",
+        contact_name: "Your name", contact_email: "Your email", contact_subject: "Subject",
+        contact_message: "Your message", contact_send: "Send",
+        footer_rights: "All rights reserved.",
+        project_view: "Details",
+        project_github: "GitHub",
+        project_modal_link: "View project on GitHub",
+        project_modal_close: "Close",
+        timeline: [
+          { date: "June 2026", title: "Summer Internship – Retail Intelligence Platform", company: "Anavid, Sfax",
+            desc: ["Development of a Retail Intelligence platform dedicated to exploiting and analyzing customer and transactional data.", "Designed and implemented data processing (feature engineering, Batch/Streaming pipelines with Apache Spark and Kafka) and developed classification, regression and clustering models.", "Developed Grafana dashboards for visualizing key commercial KPIs, and integrated these dashboards into the platform's web interface.", "Orchestrated and automated workflows with n8n.", "Implemented MLOps practices: model and data tracking/versioning with MLflow and DagsHub, exposure via FastAPI, and CI/CD workflow automation with GitHub Actions.", "Developed a RAG/Chatbot solution for intelligent data exploration."],
+            tech: ["Python", "Spark", "Kafka", "PostgreSQL", "Grafana", "n8n", "Scikit-learn", "MLflow", "DagsHub", "GitHub Actions", "FastAPI", "Ionic", "React"] },
+          { date: "Feb. – Apr. 2026", title: "Final Year Project – Autism Detection with Graph Neural Networks", company: "ENET'Com",
+            desc: ["Applied the GAT-LI model on the ABIDE I dataset for autism classification.", "Preprocessed and analyzed neuroimaging data.", "Evaluated model performance.", "Project carried out in collaboration with Nour El Houda Mhadhbi."],
+            tech: ["Python", "PyTorch", "Scikit-learn", "NumPy"] },
+          { date: "July 2025", title: "Academic Project – MonDocteur (Web Platform)", company: "Sfax",
+            desc: ["Designed and developed a web platform for managing medical services."],
+            tech: ["MySQL", "Express.js", "React.js", "Node.js"] },
+          { date: "Feb. – June 2024", title: "End-of-Studies Internship – Donnons Espoir Web Application", company: "AZIIN, Sfax",
+            desc: ["Designed and developed a web donation application for charitable organizations."],
+            tech: ["MySQL", "Express.js", "React.js", "Node.js"] },
+          { date: "2025 – present", title: "Engineering Cycle – Data Engineering and Decision Systems", company: "ENET'Com, Sfax", desc: [], tech: [] },
+          { date: "2023 – 2024", title: "Bachelor's in Business Computing", company: "FSEGS, Sfax<br><span class=\"badge-double-diplome\"><i class=\"fas fa-graduation-cap\"></i> Double degree in Computer Science – University of Le Mans (France)</span>", desc: [], tech: [] },
+          { date: "2020 – 2021", title: "Baccalaureate in Experimental Sciences", company: "Lycée 15 Novembre 1955, Sfax", desc: [], tech: [] }
+        ],
+        skills: [
+          { category: "Languages", icon: "fa-code", items: ["Java", "Scala", "Python", "C", "JavaScript", "PHP", "C#", "Dart", "PL/SQL"] },
+          { category: "Frameworks", icon: "fa-layer-group", items: ["Symfony", "Laravel", "Spring Boot", "Flutter", "React", "Express.js", "FastAPI", "Ionic"] },
+          { category: "Databases", icon: "fa-database", items: ["MySQL", "MongoDB", "PostgreSQL"] },
+          { category: "Big Data & Streaming", icon: "fa-stream", items: ["Apache Spark", "Kafka"] },
+          { category: "MLOps & Visualization", icon: "fa-chart-bar", items: ["MLflow", "DagsHub", "Grafana", "n8n"] },
+          { category: "Tools", icon: "fa-tools", items: ["VS Code", "Eclipse", "Visual Studio", "GitHub", "Linux", "Jupyter Notebook", "Android Studio", "Node.js"] }
+        ]
+      },
+      ar: {
+        nav_home: "الرئيسية", nav_about: "نبذة عني", nav_experiences: "الخبرات",
+        nav_projects: "المشاريع", nav_skills: "المهارات", nav_contact: "اتصل بي",
+        hero_greeting: "مرحباً، أنا <span>صفاء عبيد</span>",
+        hero_subtitle: "طالبة هندسة البيانات وأنظمة القرار",
+        hero_description: "شغوفة بمجالات البيانات والذكاء الاصطناعي وتطوير الويب، أبحث عن تدريب يتيح لي تطوير مهاراتي التقنية في بيئة مبتكرة.",
+        hero_contact_btn: "اتصل بي", hero_projects_btn: "شاهد مشاريعي",
+        about_title: "نبذة عني",
+        about_p1: "أنا طالبة شغوفة بالمعلوماتية ومهتمة بشكل خاص بعالم البيانات (Data). أتابع حالياً السنة الثالثة من مرحلة الهندسة في هندسة البيانات بـ ENET'Com، وقد بدأ مساري بتكوين في المعلوماتية الإدارية، استكملته بتجربة دبلوم مزدوج مع جامعة لو مان في فرنسا.",
+        about_p2: "على مدار دراستي، طورت تدريجياً اهتماماً بكيفية جمع البيانات ومعالجتها وتحويلها إلى معلومات مفيدة للإجابة عن إشكاليات ملموسة. سمحت لي مشاريعي وتجاربي باستكشاف مجالات مختلفة، أبرزها هندسة البيانات (Data Engineering) والتعلم الآلي (Machine Learning) وMLOps وتطوير التطبيقات.",
+        about_location: "صفاقس، تونس",
+        about_stat_years: "سنوات التعليم العالي", about_stat_projects: "مشاريع منجزة",
+        about_stat_languages: "لغات محكية", about_stat_tech: "تقنيات متقنة",
+        exp_title: "الخبرات والتكوين", projects_title: "المشاريع ومعرض الأعمال",
+        skills_title: "المهارات التقنية", contact_title: "اتصل بي",
+        contact_description: "لا تتردد في الاتصال بي لأي فرصة تدريب أو تعاون أو مجرد التواصل.",
+        contact_name: "اسمك", contact_email: "بريدك الإلكتروني", contact_subject: "الموضوع",
+        contact_message: "رسالتك", contact_send: "إرسال",
+        footer_rights: "جميع الحقوق محفوظة.",
+        project_view: "التفاصيل",
+        project_github: "GitHub",
+        project_modal_link: "عرض المشروع على GitHub",
+        project_modal_close: "إغلاق",
+        timeline: [
+          { date: "يونيو 2026", title: "تدريب صيفي – منصة ذكاء التجزئة", company: "Anavid، صفاقس",
+            desc: ["تطوير منصة ذكاء التجزئة (Retail Intelligence) المخصصة لاستغلال وتحليل بيانات العملاء والمعاملات.", "تصميم وتنفيذ معالجة البيانات (هندسة الميزات، خطوط أنابيب الدفعات/البث باستخدام Apache Spark و Kafka) وتطوير نماذج التصنيف والانحدار والتجميع.", "تطوير لوحات معلومات Grafana لتصور مؤشرات الأداء التجارية الرئيسية، ودمج هذه اللوحات ضمن واجهة الويب الخاصة بالمنصة.", "تنسيق وأتمتة سير العمل باستخدام n8n.", "تطبيق ممارسات MLOps: تتبع وإصدار النماذج والبيانات باستخدام MLflow وDagsHub، وتوفيرها عبر FastAPI، وأتمتة سير عمل CI/CD باستخدام GitHub Actions.", "تطوير حل RAG/Chatbot للاستغلال الذكي للبيانات."],
+            tech: ["Python", "Spark", "Kafka", "PostgreSQL", "Grafana", "n8n", "Scikit-learn", "MLflow", "DagsHub", "GitHub Actions", "FastAPI", "Ionic", "React"] },
+          { date: "فبراير – أبريل 2026", title: "مشروع نهاية العام – كشف التوحد باستخدام شبكات الرسم البياني", company: "ENET'Com",
+            desc: ["تطبيق نموذج GAT-LI على قاعدة ABIDE I لتصنيف التوحد.", "المعالجة المسبقة وتحليل بيانات التصوير العصبي.", "تقييم أداء النموذج.", "أُنجز المشروع بالتعاون مع نور الهدى مهدبي."],
+            tech: ["Python", "PyTorch", "Scikit-learn", "NumPy"] },
+          { date: "يوليو 2025", title: "مشروع أكاديمي – MonDocteur (منصة ويب)", company: "صفاقس",
+            desc: ["تصميم وتطوير منصة ويب لإدارة الخدمات الطبية."],
+            tech: ["MySQL", "Express.js", "React.js", "Node.js"] },
+          { date: "فبراير – يونيو 2024", title: "تدريب نهاية الدراسة – تطبيق ويب Donnons Espoir", company: "AZIIN، صفاقس",
+            desc: ["تصميم وتطوير تطبيق ويب للتبرعات موجه للجمعيات الخيرية."],
+            tech: ["MySQL", "Express.js", "React.js", "Node.js"] },
+          { date: "2025 – الآن", title: "مرحلة الهندسة – هندسة البيانات وأنظمة القرار", company: "ENET'Com، صفاقس", desc: [], tech: [] },
+          { date: "2023 – 2024", title: "إجازة في المعلوماتية التطبيقية للإدارة", company: "FSEGS، صفاقس<br><span class=\"badge-double-diplome\"><i class=\"fas fa-graduation-cap\"></i> دبلوم مزدوج في المعلوماتية – جامعة لو مان (فرنسا)</span>", desc: [], tech: [] },
+          { date: "2020 – 2021", title: "شهادة الباكالوريا في العلوم التجريبية", company: "ثانوية 15 نوفمبر 1955، صفاقس", desc: [], tech: [] }
+        ],
+        skills: [
+          { category: "لغات البرمجة", icon: "fa-code", items: ["Java", "Scala", "Python", "C", "JavaScript", "PHP", "C#", "Dart", "PL/SQL"] },
+          { category: "أطر العمل", icon: "fa-layer-group", items: ["Symfony", "Laravel", "Spring Boot", "Flutter", "React", "Express.js", "FastAPI", "Ionic"] },
+          { category: "قواعد البيانات", icon: "fa-database", items: ["MySQL", "MongoDB", "PostgreSQL"] },
+          { category: "البيانات الضخمة والبث", icon: "fa-stream", items: ["Apache Spark", "Kafka"] },
+          { category: "MLOps والتصور", icon: "fa-chart-bar", items: ["MLflow", "DagsHub", "Grafana", "n8n"] },
+          { category: "الأدوات", icon: "fa-tools", items: ["VS Code", "Eclipse", "Visual Studio", "GitHub", "Linux", "Jupyter Notebook", "Android Studio", "Node.js"] }
+        ]
+      }
+    };
+
+    // ============================================================
+    // 3. GESTION DE LA LANGUE
+    // ============================================================
+    let currentLang = 'fr';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      const t = translations[lang];
+
+      if (lang === 'ar') {
+        document.body.classList.add('rtl');
+        document.getElementById('htmlRoot').setAttribute('dir', 'rtl');
+        document.getElementById('htmlRoot').setAttribute('lang', 'ar');
+      } else {
+        document.body.classList.remove('rtl');
+        document.getElementById('htmlRoot').setAttribute('dir', 'ltr');
+        document.getElementById('htmlRoot').setAttribute('lang', lang);
+      }
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (t[key]) {
+          if (key === 'hero_greeting') el.innerHTML = t[key];
+          else el.textContent = t[key];
+        }
+      });
+
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.dataset.i18nPlaceholder;
+        if (t[key]) el.placeholder = t[key];
+      });
+
+      renderTimeline(t.timeline);
+      renderProjects();
+      renderSkills(t.skills);
+
+      const modalBtn = document.getElementById('modalCloseBtn');
+      if (modalBtn) {
+        modalBtn.querySelector('span').textContent = t.project_modal_close;
+      }
+      const modalLinkSpan = document.querySelector('#modalLink span');
+      if (modalLinkSpan) {
+        modalLinkSpan.textContent = t.project_modal_link;
+      }
+    }
+
+    // ============================================================
+    // 4. RENDU DYNAMIQUE
+    // ============================================================
+    function renderTimeline(timelineData) {
+      const container = document.getElementById('timelineContainer');
+      if (!container) return;
+
+      let html = '';
+      timelineData.forEach(item => {
+        html += `
+          <div class="timeline-item">
+            <div class="timeline-date">${item.date}</div>
+            <div class="timeline-title">${item.title}</div>
+            <div class="timeline-company">${item.company}</div>
+            ${item.desc && item.desc.length > 0 ? `
+              <div class="timeline-desc"><ul>${item.desc.map(d => `<li>${d}</li>`).join('')}</ul></div>
+            ` : ''}
+            ${item.tech && item.tech.length > 0 ? `
+              <div class="tech-tags">${item.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}</div>
+            ` : ''}
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function renderProjects() {
+      const container = document.getElementById('projectsGrid');
+      if (!container) return;
+
+      const t = translations[currentLang];
+      let html = '';
+
+      projectsData.forEach(project => {
+        const title = project.title[currentLang] || project.title['fr'];
+        const context = project.context[currentLang] || project.context['fr'];
+
+        html += `
+          <div class="project-card">
+            <div class="project-image">
+              <i class="fas ${project.icon}"></i>
+            </div>
+            <div class="project-body">
+              <h3>${title}</h3>
+              <p>${context}</p>
+              <div class="project-tech">
+                ${project.tech.map(tech => `<span>${tech}</span>`).join('')}
+              </div>
+              <div class="project-actions">
+                <button class="project-details-btn" data-project-id="${project.id}">
+                  <i class="fas fa-book-open"></i>
+                  <span>${t.project_view}</span>
+                  <i class="fas fa-arrow-right"></i>
+                </button>
+                <a href="${project.link}" target="_blank" class="project-github-link" title="Voir sur GitHub">
+                  <i class="fab fa-github"></i>
+                  <span>${t.project_github}</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+
+      // Événements : bouton détails → modale
+      document.querySelectorAll('.project-details-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const projectId = parseInt(btn.dataset.projectId);
+          openProjectModal(projectId);
+        });
+      });
+    }
+
+    function renderSkills(skillsData) {
+      const container = document.getElementById('skillsGrid');
+      if (!container) return;
+
+      let html = '';
+      skillsData.forEach(cat => {
+        html += `
+          <div class="skill-category">
+            <h3><i class="fas ${cat.icon}"></i> ${cat.category}</h3>
+            <div class="skill-tags">
+              ${cat.items.map(item => `<span>${item}</span>`).join('')}
+            </div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    // ============================================================
+    // 5. MODAL PROJET
+    // ============================================================
+    function openProjectModal(projectId) {
+      const project = projectsData.find(p => p.id === projectId);
+      if (!project) return;
+
+      const t = translations[currentLang];
+      const title = project.title[currentLang] || project.title['fr'];
+      const description = project.description[currentLang] || project.description['fr'];
+
+      document.getElementById('modalTitle').textContent = title;
+
+      // Un <p> par paragraphe (séparés par \n\n dans les données)
+      const descEl = document.getElementById('modalDescription');
+      descEl.innerHTML = '';
+      description.split('\n\n').forEach(text => {
+        const p = document.createElement('p');
+        p.textContent = text;
+        descEl.appendChild(p);
+      });
+
+      document.getElementById('modalIcon').innerHTML = `<i class="fas ${project.icon}"></i>`;
+      document.getElementById('modalTech').innerHTML = project.tech.map(tech => `<span>${tech}</span>`).join('');
+      document.getElementById('modalLink').href = project.link;
+      document.getElementById('modalLink').querySelector('span').textContent = t.project_modal_link;
+      document.getElementById('modalCloseBtn').querySelector('span').textContent = t.project_modal_close;
+
+      document.getElementById('projectModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeProjectModal() {
+      document.getElementById('projectModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // ============================================================
+    // 6. INITIALISATION
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuToggle = document.getElementById('menuToggle');
+      const navLinks = document.getElementById('navLinks');
+
+      if (menuToggle) {
+        menuToggle.addEventListener('click', () => {
+          navLinks.classList.toggle('open');
+        });
+      }
+
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+        });
+      });
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          setLanguage(btn.dataset.lang);
+        });
+      });
+
+      document.getElementById('modalClose').addEventListener('click', closeProjectModal);
+      document.getElementById('modalCloseBtn').addEventListener('click', closeProjectModal);
+      document.getElementById('projectModal').addEventListener('click', (e) => {
+        if (e.target === document.getElementById('projectModal')) {
+          closeProjectModal();
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeProjectModal();
+      });
+
+      setLanguage('fr');
+
+      const sections = document.querySelectorAll('section[id]');
+      window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop - 100;
+          if (window.scrollY >= sectionTop) {
+            current = section.getAttribute('id');
+          }
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + current) {
+            link.classList.add('active');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
