@@ -13,7 +13,6 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
    :root {
-      /* NOUVELLE PALETTE PLUS CLAIRE */
       --bg: #f0f4f8;
       --bg-card: #ffffff;
       --bg-light: #e8eef6;
@@ -186,38 +185,6 @@
     .lang-btn.active { background: var(--primary); color: #fff; }
     .lang-btn:hover:not(.active) { color: var(--text); }
 
-    /* ---------- CV DOWNLOAD BUTTONS (HEADER) ---------- */
-    .cv-download-group {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-    }
-
-    .cv-btn {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      padding: 6px 12px;
-      border-radius: 30px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: var(--transition);
-      font-family: inherit;
-      white-space: nowrap;
-    }
-
-    .cv-btn:hover {
-      border-color: var(--primary);
-      color: var(--text);
-      background: rgba(124, 58, 237, 0.08);
-    }
-
-    .cv-btn i { font-size: 0.8rem; }
-
     .menu-toggle {
       display: none;
       background: transparent;
@@ -271,7 +238,135 @@
       max-width: 500px;
     }
 
-    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+    /* ---------- BOUTONS CV (hero, principaux) ---------- */
+    .cv-buttons {
+        margin-top: 20px;
+      margin-left: 50px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .cv-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      background-size: 200% 200%;
+      background-position: 0% 50%;
+      box-shadow: 0 8px 20px -8px rgba(124, 58, 237, 0.45);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-position 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cv-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .cv-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 28px -10px rgba(124, 58, 237, 0.65);
+      background-position: 100% 50%;
+    }
+
+    .cv-btn:hover::before {
+      left: 100%;
+    }
+
+    .cv-btn:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+
+    .cv-btn i {
+      font-size: 0.85rem;
+    }
+
+    .cv-btn .cv-btn-label {
+      letter-spacing: 0.02em;
+    }
+
+    .cv-btn .fa-download {
+      font-size: 0.75rem;
+      opacity: 0.9;
+      transition: transform 0.3s ease;
+    }
+
+    .cv-btn:hover .fa-download {
+      transform: translateY(2px);
+    }
+
+    /* ---------- LIENS DISCRETS (Me contacter / Voir projets) ---------- */
+    .hero-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+
+    .hero-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+      padding: 2px 0;
+    }
+
+    .hero-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .hero-links a:hover {
+      color: var(--primary);
+    }
+
+    .hero-links a:hover::after {
+      width: 100%;
+    }
+
+    .hero-links a i {
+      font-size: 0.75rem;
+      transition: transform 0.3s ease;
+    }
+
+    .hero-links a:hover i {
+      transform: translateX(2px);
+    }
+
+    .hero-links .separator {
+      color: var(--border);
+      font-size: 0.8rem;
+      user-select: none;
+    }
+
     .hero-image { display: flex; justify-content: center; align-items: center; }
 
     .avatar {
@@ -288,6 +383,7 @@
       box-shadow: 0 30px 60px -20px rgba(124, 58, 237, 0.4);
       border: 4px solid var(--bg-card);
       transition: var(--transition);
+      object-fit: cover;
     }
 
     .avatar:hover { transform: scale(1.02); }
@@ -295,7 +391,6 @@
     /* ---------- À PROPOS ---------- */
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
 
-    /* NOUVELLE MISE EN PAGE DU TEXTE À PROPOS */
     .about-text p {
       color: var(--text-muted);
       margin-bottom: 18px;
@@ -484,7 +579,6 @@
       border: 1px solid var(--border);
     }
 
-    /* Actions en bas de carte projet */
     .project-actions {
       display: flex;
       justify-content: space-between;
@@ -791,12 +885,8 @@
       background: rgba(139, 92, 246, 0.14);
       border: 1px solid rgba(139, 92, 246, 0.4);
     }
-    /* ---------- RESPONSIVE ---------- */
-    @media (max-width: 1100px) {
-      .cv-btn span { display: none; }
-      .cv-btn { padding: 6px 10px; }
-    }
 
+    /* ---------- RESPONSIVE ---------- */
     @media (max-width: 992px) {
       .hero-grid, .about-grid, .contact-grid {
         grid-template-columns: 1fr;
@@ -806,10 +896,6 @@
       .hero-content h1 { font-size: 2.8rem; }
       .avatar { width: 240px; height: 240px; font-size: 4.5rem; }
       .hero-image { order: -1; }
-    }
-
-    @media (max-width: 900px) {
-      .cv-download-group { display: none; }
     }
 
     @media (max-width: 768px) {
@@ -845,19 +931,25 @@
       body.rtl .timeline-item::before { right: -26px; }
       .modal-content { padding: 24px; }
       .modal-header h3 { font-size: 1.2rem; }
+
+      .cv-buttons { gap: 8px; }
+      .cv-btn { padding: 10px 18px; font-size: 0.85rem; }
+      .hero-links { font-size: 0.85rem; }
     }
 
     @media (max-width: 480px) {
       .container { padding: 0 16px; }
       .hero-content h1 { font-size: 1.9rem; }
-      .hero-buttons { flex-direction: column; }
-      .btn { justify-content: center; width: 100%; }
       .about-stats { grid-template-columns: 1fr; }
       .lang-switch { gap: 2px; }
       .lang-btn { padding: 4px 6px; font-size: 0.65rem; }
       .modal-footer { flex-direction: column; }
       .project-actions { flex-direction: column; align-items: flex-start; }
       .project-actions-left { width: 100%; justify-content: space-between; }
+
+      .cv-buttons { gap: 8px; }
+      .cv-btn { padding: 9px 14px; font-size: 0.8rem; }
+      .hero-links { font-size: 0.8rem; gap: 6px; }
     }
   </style>
 </head>
@@ -878,17 +970,6 @@
         </ul>
 
         <div class="nav-right">
-          <div class="cv-download-group">
-            <a href="Safa_Abid_CV_FR.pdf" class="cv-btn" download="Safa_Abid_CV_FR.pdf" title="Télécharger CV Français">
-              <i class="fas fa-file-pdf"></i>
-              <span>CV FR</span>
-            </a>
-            <a href="Safa_Abid_CV_EN.pdf" class="cv-btn" download="Safa_Abid_CV_EN.pdf" title="Download English CV">
-              <i class="fas fa-file-pdf"></i>
-              <span>CV EN</span>
-            </a>
-          </div>
-
           <div class="lang-switch">
             <button class="lang-btn active" data-lang="fr">FR</button>
             <button class="lang-btn" data-lang="en">EN</button>
@@ -914,14 +995,36 @@
             <p data-i18n="hero_description">
               Passionnée par la data, l'intelligence artificielle et le développement web, je suis à la recherche d'un stage qui me permettra de développer mes compétences techniques dans un cadre innovant.
             </p>
-            <div class="hero-buttons">
-              <a href="#contact" class="btn"><i class="fas fa-paper-plane"></i> <span data-i18n="hero_contact_btn">Me contacter</span></a>
-              <a href="#projets" class="btn btn-outline"><i class="fas fa-code"></i> <span data-i18n="hero_projects_btn">Voir mes projets</span></a>
+
+            <!-- ===== BOUTONS CV (principaux du hero) ===== -->
+            <div class="cv-buttons">
+              <a href="Safa_Abid_CV_FR.pdf" class="cv-btn" download="Safa_Abid_CV_FR.pdf" title="Télécharger CV Français">
+                <i class="fas fa-download"></i>
+                <span class="cv-btn-label">CV Français</span>
+            
+              </a>
+              <a href="Safa_Abid_CV_EN.pdf" class="cv-btn" download="Safa_Abid_CV_EN.pdf" title="Download English CV">
+               <i class="fas fa-download"></i>
+                <span class="cv-btn-label">English CV</span>
+                
+              </a>
             </div>
+
+            <!-- ===== LIENS TEXTE DISCRETS ===== -->
+            <!-- <div class="hero-links">
+              <a href="#contact">
+                <i class="fas fa-paper-plane"></i>
+                <span data-i18n="hero_contact_btn">Me contacter</span>
+              </a>
+              <span class="separator">·</span>
+              <a href="#projets">
+                <i class="fas fa-code"></i>
+                <span data-i18n="hero_projects_btn">Voir mes projets</span>
+              </a>
+            </div> -->
           </div>
           <div class="hero-image">
-            <!-- <div class="avatar">SA</div> -->
-             <img class="avatar" src="photoSafa.png">
+            <img class="avatar" src="photoSafa.png" alt="Safa Abid">
           </div>
         </div>
       </div>
@@ -939,9 +1042,6 @@
             <p data-i18n="about_p2">
               Au fil de mes études, j'ai progressivement développé un intérêt pour la manière dont les données peuvent être collectées, traitées et transformées en informations utiles pour répondre à des problématiques concrètes. Mes projets et expériences m'ont permis d'explorer différents domaines, notamment le Data Engineering, le Machine Learning, le MLOps et le développement d'applications.
             </p>
-            <!-- <p data-i18n="about_p3">
-              J'aime apprendre, expérimenter de nouvelles technologies et surtout transformer mes connaissances en solutions concrètes. Aujourd'hui, je souhaite continuer à évoluer dans le domaine de la Data, relever de nouveaux défis et construire des projets qui ont du sens.
-            </p> -->
             <div class="about-info">
               <div class="info-item"><i class="fas fa-map-pin"></i> <span data-i18n="about_location">Sfax, Tunisie</span></div>
               <div class="info-item"><i class="fas fa-envelope"></i> <span>abbid.safa@gmail.com</span></div>
@@ -1075,7 +1175,6 @@
   <script>
     // ============================================================
     // 1. DONNÉES DES PROJETS
-    //    Dans les descriptions, "\n\n" sépare les paragraphes.
     // ============================================================
     const projectsData = [
       {
@@ -1537,7 +1636,6 @@
 
       container.innerHTML = html;
 
-      // Événements : bouton détails → modale
       document.querySelectorAll('.project-details-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -1578,7 +1676,6 @@
 
       document.getElementById('modalTitle').textContent = title;
 
-      // Un <p> par paragraphe (séparés par \n\n dans les données)
       const descEl = document.getElementById('modalDescription');
       descEl.innerHTML = '';
       description.split('\n\n').forEach(text => {
@@ -1630,7 +1727,7 @@
       document.getElementById('modalClose').addEventListener('click', closeProjectModal);
       document.getElementById('modalCloseBtn').addEventListener('click', closeProjectModal);
       document.getElementById('projectModal').addEventListener('click', (e) => {
-        if (e.target === document.getElementById('projectModal')) {
+        if (e.target.id === 'projectModal') {
           closeProjectModal();
         }
       });
